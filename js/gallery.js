@@ -1,3 +1,5 @@
+import * as basicLightbox from "basiclightbox";
+
 const images = [
   {
     preview:
@@ -85,4 +87,16 @@ gallery.addEventListener("click", (evt) => {
   if (evt.target.nodeName !== "IMG") {
     return;
   }
+  const srcImage = evt.target.dataset.source;
+  const altText = evt.target.alt;
+
+  const instance = basicLightbox.create(`
+    <div class="modal">
+         <img src='${srcImage}'
+          alt='${altText}'
+        />
+    </div>
+`);
+
+  instance.show();
 });
