@@ -65,18 +65,24 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-const markup = images.map((image) => {
+const markup = images.map((preview, original, description) => {
   return `<li class="gallery-item">
       <a class="gallery-link" href="large-image.jpg">
         <img
           class="gallery-image"
-          src='${image.preview}'
-          data-source='${image.original}'
-          alt='${image.description}'
+          src='${preview}'
+          data-source='${original}'
+          alt='${description}'
         />
       </a>
     </li>`;
 });
-gallery.insertAdjacentHTML("beforeend", markup);
 
-console.log(markup);
+gallery.insertAdjacentHTML("beforeend", markup.join(""));
+
+gallery.addEventListener("click", (evt) => {
+  preventDefault();
+  if (evt.target.nodeName !== "IMG") {
+    return;
+  }
+});
