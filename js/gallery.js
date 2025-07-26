@@ -1,5 +1,3 @@
-import * as basicLightbox from "basiclightbox";
-
 const images = [
   {
     preview:
@@ -67,7 +65,7 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-const markup = images.map((preview, original, description) => {
+const markup = images.map(({ preview, original, description }) => {
   return `<li class="gallery-item">
       <a class="gallery-link" href="large-image.jpg">
         <img
@@ -83,19 +81,13 @@ const markup = images.map((preview, original, description) => {
 gallery.insertAdjacentHTML("beforeend", markup.join(""));
 
 gallery.addEventListener("click", (evt) => {
-  preventDefault();
+  evt.preventDefault();
   if (evt.target.nodeName !== "IMG") {
     return;
   }
-  const srcImage = evt.target.dataset.source;
-  const altText = evt.target.alt;
 
   const instance = basicLightbox.create(`
-    <div class="modal">
-         <img src='${srcImage}'
-          alt='${altText}'
-        />
-    </div>
+    <img src='${evt.target.dataset.source}' alt='${evt.target.alt}'>
 `);
 
   instance.show();
